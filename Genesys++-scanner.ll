@@ -132,7 +132,7 @@ L      [A-Za-z0-9_.]+
 
 .       {return yy::genesyspp_parser::make_ILLEGAL(obj_t(0, std::string("Ilegal")), loc);}
 
-<<EOF>>    {return yy::genesyspp_parser::make_END(obj_t(0,std::string("EOF")),loc);}
+<<EOF>> {return yy::genesyspp_parser::make_END(loc);}
 
 
 %%

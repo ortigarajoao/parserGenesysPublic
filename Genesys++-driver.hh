@@ -22,7 +22,7 @@ public:
 
   //std::map<std::string, int> variables; not needed
 
-  int result;
+  double result;
   // Handling the scanner.
   void scan_begin ();
   void scan_begin_file ();
