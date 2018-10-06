@@ -53,10 +53,12 @@ L      [A-Za-z0-9_.]+
 {RR}  {
        //Float number
        obj_t o(atof(yytext),std::string("Float"));
+       return yy::genesyspp_parser::make_NUMD(o, loc);
   		 //Maybe needs to change dot to comma
   		 if(o.valor > 0.0){
         return yy::genesyspp_parser::make_NUMD(o, loc);
   		 } else {
+         std::cout << "Nao é maior que 0.0" << '\n';
   			return yy::genesyspp_parser::make_ILLEGAL(obj_t(0, std::string("Ilegal")), loc); //maybe call driver.error or throw exception
   		 }
      }
@@ -64,9 +66,11 @@ L      [A-Za-z0-9_.]+
 {DD}  {
        //Decimal number
        obj_t o(atof(yytext),std::string("Decimal"));
+       return yy::genesyspp_parser::make_NUMD(o, loc);
   		 if(o.valor > 0.0){
   			return yy::genesyspp_parser::make_NUMD(o, loc);
   		 } else {
+         std::cout << "Nao é maior que 0.0 Decimal" << '\n';
   			return yy::genesyspp_parser::make_ILLEGAL(obj_t(0, std::string("Ilegal")), loc); //maybe call driver.error or throw exception
   		 }
       }
@@ -85,9 +89,9 @@ L      [A-Za-z0-9_.]+
 [tT][oO]              {return yy::genesyspp_parser::make_cTO(obj_t(0, std::string(yytext)), loc);}
 [dD][oO]              {return yy::genesyspp_parser::make_cDO(obj_t(0, std::string(yytext)), loc);}
 
-[.][aA][nN][dD][.]    {return yy::genesyspp_parser::make_oAND(obj_t(0, std::string(yytext)), loc);}
-[.][oO][rR][.]        {return yy::genesyspp_parser::make_oOR(obj_t(0, std::string(yytext)), loc);}
-[.][nN][oO][tT][.]    {return yy::genesyspp_parser::make_oNOT(obj_t(0, std::string(yytext)), loc);}
+[aA][nN][dD]    {return yy::genesyspp_parser::make_oAND(obj_t(0, std::string(yytext)), loc);}
+[oO][rR]        {return yy::genesyspp_parser::make_oOR(obj_t(0, std::string(yytext)), loc);}
+[nN][oO][tT]    {return yy::genesyspp_parser::make_oNOT(obj_t(0, std::string(yytext)), loc);}
 
 [sS][iI][nN]      {return yy::genesyspp_parser::make_fSIN(obj_t(0, std::string(yytext)), loc);}
 [cC][oO][sS]      {return yy::genesyspp_parser::make_fCOS(obj_t(0, std::string(yytext)), loc);}
@@ -127,6 +131,21 @@ L      [A-Za-z0-9_.]+
 [fF][iI][rR][sS][tT][iI][nN][qQ]     {return yy::genesyspp_parser::make_fFIRSTINQ(obj_t(0, std::string(yytext)), loc);}
 
 [tT][eE][sS][tT][eE] {return yy::genesyspp_parser::make_TESTE(obj_t(0, std::string(yytext)), loc);}
+
+[(] {return yy::genesyspp_parser::make_LPAREN(loc);}
+[)] {return yy::genesyspp_parser::make_RPAREN(loc);}
+
+[+] {return yy::genesyspp_parser::make_PLUS(loc);}
+[-] {return yy::genesyspp_parser::make_MINUS(loc);}
+[*] {return yy::genesyspp_parser::make_STAR(loc);}
+[/] {return yy::genesyspp_parser::make_SLASH(loc);}
+
+[<] {return yy::genesyspp_parser::make_LESS(loc);}
+[>] {return yy::genesyspp_parser::make_GREATER(loc);}
+
+[=] {return yy::genesyspp_parser::make_ASSIGN(loc);}
+
+[,] {return yy::genesyspp_parser::make_COMMA(loc);}
 
 [ \t\n]        ;
 
