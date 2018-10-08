@@ -27,7 +27,6 @@ main (int argc, char *argv[])
     else
       res = 1;
   return res;
- */
-  std::cout << "/* Foi porra */" << '\n';
+ */  
   return 0;
 }
